@@ -2,6 +2,21 @@
 <a href="/">Back to Gem Index</a>
 </p>
 
+<% if @allow_delete %>
+  <div class="actions">
+    <form method="post" action="<%= url("/gems/#{@gem.first.name}/delete_multiple") %>">
+      <input type="hidden" name="_method" value="DELETE" />
+      <select name="version">
+        <% @gem.reverse_each do |gem| %>
+          <option value="<%= gem.version %>"><%= gem.version %></option>
+        <% end %>
+      </select>
+      <button type="submit">Delete Older Versions</button>
+    </form>
+    <small>Any gems older than the version selected will be deleted.</small>
+  </div>
+<% end %>
+
 <ul class="gemlist">
   <% @gem.by_name do |name, versions| %>
     <li class="gem-version">

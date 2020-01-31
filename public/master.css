@@ -93,6 +93,7 @@ ul.gemlist li .delete-form {
   margin: 2px 0;
 }
 ul.gemlist li button,
+ul.gemlist li input,
 ul.gemlist li a.download
 {
   display: none;
@@ -117,6 +118,7 @@ ul.gemlist li a.download {
 }
 
 ul.gemlist li:hover button,
+ul.gemlist li:hover input,
 ul.gemlist li:hover a.download {
   margin: 0;
   display: block;
@@ -137,7 +139,6 @@ ul.gemlist li:hover a.download {
   margin-top: 1.0em;
   color: #aaa;
 }
-
 
 .gem-version p {
   margin: 0;

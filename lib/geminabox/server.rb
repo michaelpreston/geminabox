@@ -149,6 +149,27 @@ module Geminabox
 
     end
 
+    delete '/gems/:gemname/delete_multiple' do
+      unless self.class.allow_delete?
+        error_response(403, 'Gem deletion is disabled - see https://github.com/geminabox/geminabox/issues/115')
+      end
+
+      puts '-' * 90
+      puts "Params: #{params.inspect}"
+      puts '-' * 90
+
+      serialize_update do
+        gems = load_gems.select do |gem|
+          params[:gemname] == gem.name and params[:version] >= gem.number.version
+
+          puts "Params[:version]<=gem.number.version?: #{params[:version] <= gem.number.version}"
+          puts "Gem.number.version: #{gem.number.version}"
+        end
+
+        halt 404, 'Gem not found' if gems.size == 0
+      end
+    end
+
     delete '/api/v1/gems/yank' do
       unless self.class.allow_delete?
         error_response(403, 'Gem deletion is disabled')
